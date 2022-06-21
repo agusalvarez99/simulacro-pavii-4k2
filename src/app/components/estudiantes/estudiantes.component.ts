@@ -64,7 +64,7 @@ export class EstudiantesComponent implements OnInit {
   Agregar() {
     this.AccionABMC = 'A';
     this.GetBarrios();
-    this.FormRegistro.reset({ IdEstudiante: 0, EstudianteRegular: 0 });
+    this.FormRegistro.reset({ EstudianteID: 0, EstudianteRegular: 0 });
   }
   GetBarrios() {
     this.barriosServices.get().subscribe((res: Barrios[]) => {
