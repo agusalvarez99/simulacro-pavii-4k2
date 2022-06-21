@@ -3,6 +3,7 @@ import { Barrios } from '../../models/barrios';
 import { EstudiantesService } from '../../services/estudiantes.service';
 import { Estudiantes } from '../../models/estudiantes';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BarriosService } from '../../services/barrios.service';
 
 @Component({
   selector: 'app-estudiantes',
@@ -22,8 +23,12 @@ export class EstudiantesComponent implements OnInit {
   Items: Estudiantes[] = [];
   Barrios: Barrios[] = [];
   submitted = false;
-
-  constructor(private estudiantesService: EstudiantesService) {}
+  OpcionesRegular = [
+    { Id: null, Nombre: '' },
+    { Id: true, Nombre: 'Regular' },
+    { Id: false, Nombre: 'No Regular' },
+  ];
+  constructor(private estudiantesService: EstudiantesService, private barriosServices: BarriosService) {}
 
   FormRegistro = new FormGroup({
     EstudianteID: new FormControl(0),
@@ -55,6 +60,15 @@ export class EstudiantesComponent implements OnInit {
   }
   Agregar() {
     this.AccionABMC = 'A';
+    this.GetBarrios();
     this.FormRegistro.reset({ IdEstudiante: 0 });
+  }
+  GetBarrios() {
+    this.barriosServices.get().subscribe((res: Barrios[]) => {
+      this.Barrios = res;
+    });
+  }
+  Volver() {
+    this.AccionABMC = 'L';
   }
 }

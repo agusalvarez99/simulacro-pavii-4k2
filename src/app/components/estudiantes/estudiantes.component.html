@@ -28,3 +28,146 @@
     <div class="col-2"></div>
   </div>
 </div>
+
+<button type="button" class="btn btn-primary" (click)="Agregar()">
+  <i class="fa fa-plus"> </i>
+  Agregar
+</button>
+
+<form name="FormRegistro" [formGroup]="FormRegistro" *ngIf="AccionABMC != 'L'">
+  <!--campo apellido y nombre-->
+  <div class="row">
+    <div class="col-sm-4 col-md-3 offset-md-1">
+      <label class="col-form-label" for="EstudianteAyN"
+        >Apellido y Nombre<span class="text-danger">*</span>:</label
+      >
+    </div>
+    <div class="col-sm-8 col-md-6">
+      <input type="text" class="form-control" formControlName="EstudianteAyN" />
+
+      <div
+        class="validacion"
+        *ngIf="
+          (FormRegistro.controls['EstudianteAyN'].touched || submitted) &&
+          FormRegistro.controls['EstudianteAyN'].hasError('required')
+        "
+      >
+        Dato requerido.
+      </div>
+      <div
+        class="validacion"
+        *ngIf="
+          (FormRegistro.controls['EstudianteAyN'].touched || submitted) &&
+          FormRegistro.controls['EstudianteAyN'].hasError('maxlength')
+        "
+      >
+        Dato texto, hasta 50 caracteres.
+      </div>
+    </div>
+  </div>
+  <!--campo EstudianteLegajo-->
+  <div class="row">
+    <div class="col-sm-4 col-md-3 offset-md-1">
+      <label class="col-form-label" for="EstudianteLegajo"
+        >Legajo<span class="text-danger">*</span>:</label
+      >
+    </div>
+    <div class="col-sm-8 col-md-6">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="EstudianteLegajo"
+      />
+
+      <div
+        class="validacion"
+        *ngIf="
+          (FormRegistro.controls['EstudianteLegajo'].touched || submitted) &&
+          FormRegistro.controls['EstudianteLegajo'].hasError('required')
+        "
+      >
+        Dato requerido.
+      </div>
+      <div
+        class="validacion"
+        *ngIf="
+          (FormRegistro.controls['EstudianteLegajo'].touched || submitted) &&
+          FormRegistro.controls['EstudianteLegajo'].hasError('pattern')
+        "
+      >
+        Dato numerico, hasta 5 digitos.
+      </div>
+    </div>
+  </div>
+  <!--campo EstudianteFechaNac-->
+  <div class="row">
+    <div class="col-sm-4 col-md-3 offset-md-1">
+      <label class="col-form-label" for="EstudianteFechaNac"
+        >Fecha de Nacimiento<span class="text-danger">*</span>:</label
+      >
+    </div>
+    <div class="col-sm-8 col-md-6">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="EstudianteFechaNac"
+      />
+
+      <div
+        class="validacion"
+        *ngIf="
+          (FormRegistro.controls['EstudianteFechaNac'].touched || submitted) &&
+          FormRegistro.controls['EstudianteFechaNac'].hasError('required')
+        "
+      >
+        Dato requerido.
+      </div>
+      <div
+        class="validacion"
+        *ngIf="
+          (FormRegistro.controls['EstudianteFechaNac'].touched || submitted) &&
+          FormRegistro.controls['EstudianteFechaNac'].hasError('pattern')
+        "
+      >
+        Dato fecha, formato DD/MM/AAAA.
+      </div>
+    </div>
+  </div>
+
+  <!--estudiante regular-->
+  <label for="EstudianteRegular">Condicion</label>
+  <select
+    name="EstudianteRegular"
+    id="EstudianteRegular"
+    formControlName="EstudianteRegular"
+  >
+    <option *ngFor="let opt of OpcionesRegular" [ngValue]="opt.Id">
+      {{ opt.Nombre }}
+    </option>
+  </select>
+  <div
+    class="validacion"
+    *ngIf="
+      (FormRegistro.controls['EstudianteRegular'].touched || submitted) &&
+      FormRegistro.controls['EstudianteRegular'].hasError('required')
+    "
+  >
+    Dato requerido
+  </div>
+  <!--barrio-->
+  <label for="BarrioID">Barrio</label>
+  <select name="BarrioID" id="BarrioID" formControlName="BarrioID">
+    <option *ngFor="let opt of Barrios" [ngValue]="opt.BarrioID">
+      {{ opt.BarrioNombre }}
+    </option>
+  </select>
+  <div
+    class="validacion"
+    *ngIf="
+      (FormRegistro.controls['BarrioID'].touched || submitted) &&
+      FormRegistro.controls['BarrioID'].hasError('required')
+    "
+  >
+    Dato requerido
+  </div>
+</form>
