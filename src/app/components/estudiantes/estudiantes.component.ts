@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Barrios } from '../../models/barrios';
+import { EstudiantesService } from '../../services/estudiantes.service';
 import { Estudiantes } from '../../models/estudiantes';
 
 @Component({
@@ -17,9 +19,18 @@ export class EstudiantesComponent implements OnInit {
   };
   AccionABMC: string = 'L';
   Items: Estudiantes[] = [];
+  Barrios: Barrios[] = [];
   submitted = false;
 
-  constructor() {}
+  constructor(private estudiantesService: EstudiantesService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.Buscar();
+  }
+  Buscar() {
+    this.AccionABMC = 'L';
+    this.estudiantesService.get().subscribe((res: Estudiantes[]) => {
+      this.Items = res;
+    });
+  }
 }
