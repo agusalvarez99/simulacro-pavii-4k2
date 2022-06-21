@@ -29,7 +29,12 @@
   </div>
 </div>
 
-<button type="button" class="btn btn-primary" (click)="Agregar()">
+<button
+  *ngIf="AccionABMC == 'L'"
+  type="button"
+  class="btn btn-primary"
+  (click)="Agregar()"
+>
   <i class="fa fa-plus"> </i>
   Agregar
 </button>
@@ -135,6 +140,7 @@
   </div>
 
   <!--estudiante regular-->
+  
   <label for="EstudianteRegular">Condicion</label>
   <select
     name="EstudianteRegular"
@@ -169,5 +175,15 @@
     "
   >
     Dato requerido
+  </div>
+
+  <!-- botones -->
+  <div class="row justify-content-center botones">
+    <button type="button" class="btn btn-primary" (click)="Volver()">
+      Volver
+    </button>
+    <button type="button" class="btn btn-primary" (click)="Grabar()">
+      Aceptar
+    </button>
   </div>
 </form>

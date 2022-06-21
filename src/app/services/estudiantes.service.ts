@@ -8,7 +8,7 @@ import { Estudiantes } from '../models/estudiantes';
 export class EstudiantesService {
   resourceUrl: string;
   constructor(private httpClient: HttpClient) {
-    this.resourceUrl = 'https://pavii2022.azurewebsites.net/api/estudiantes';
+    this.resourceUrl = 'https://pavii2022.azurewebsites.net/api/estudiantes/';
   }
   get() {
     return this.httpClient.get(this.resourceUrl);

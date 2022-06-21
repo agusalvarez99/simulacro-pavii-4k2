@@ -28,7 +28,10 @@ export class EstudiantesComponent implements OnInit {
     { Id: true, Nombre: 'Regular' },
     { Id: false, Nombre: 'No Regular' },
   ];
-  constructor(private estudiantesService: EstudiantesService, private barriosServices: BarriosService) {}
+  constructor(
+    private estudiantesService: EstudiantesService,
+    private barriosServices: BarriosService
+  ) {}
 
   FormRegistro = new FormGroup({
     EstudianteID: new FormControl(0),
@@ -36,7 +39,7 @@ export class EstudiantesComponent implements OnInit {
       Validators.required,
       Validators.maxLength(50),
     ]),
-    EstudianteLegajo: new FormControl(null, [
+    EstudianteLegajo: new FormControl('', [
       Validators.required,
       Validators.pattern('[0-9]{1,5}'),
     ]),
@@ -61,7 +64,7 @@ export class EstudiantesComponent implements OnInit {
   Agregar() {
     this.AccionABMC = 'A';
     this.GetBarrios();
-    this.FormRegistro.reset({ IdEstudiante: 0 });
+    this.FormRegistro.reset({ IdEstudiante: 0, EstudianteRegular: 0 });
   }
   GetBarrios() {
     this.barriosServices.get().subscribe((res: Barrios[]) => {
@@ -70,5 +73,22 @@ export class EstudiantesComponent implements OnInit {
   }
   Volver() {
     this.AccionABMC = 'L';
+  }
+  Grabar() {
+    this.submitted = true;
+    if (this.FormRegistro.invalid) {
+      return;
+    }
+    const itemCopy = { ...this.FormRegistro.value };
+    var arrFecha = itemCopy.EstudianteFechaNac.substring(0, 10).split('/');
+    if (arrFecha.length == 3)
+      itemCopy.EstudianteFechaNac = new Date(
+        arrFecha[2],
+        arrFecha[1] - 1,
+        arrFecha[0]
+      ).toISOString();
+    this.estudiantesService.post(itemCopy).subscribe((res: any) => {
+      this.Buscar();
+    });
   }
 }
